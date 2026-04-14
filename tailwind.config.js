@@ -8,15 +8,15 @@ export default {
     extend: {
       colors: {
         brand: {
-          primary: "#4AC6D3",
-          secondary: "#5FDBA7",
-          depth: "#005465",
-          bg: "#050a0f",
+          primary: "#050A0F", // Abyss Teal (Background/Primary Theme)
+          accent: "#FFD700",  // Gold (Secondary/Accent)
+          muted: "#C9A055",   // Muted Gold
+          depth: "#061A1F",
         },
       },
       fontFamily: {
-        heading: ["Syne", "sans-serif"],
-        body: ["DM Sans", "sans-serif"],
+        heading: ["Bricolage Grotesque", "sans-serif"],
+        body: ["Nunito", "sans-serif"],
         mono: ["IBM Plex Mono", "monospace"],
       },
     },

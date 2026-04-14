@@ -16,50 +16,51 @@ export const ZONES: Zone[] = [
     key: 'red', 
     min: 0, 
     max: 59, 
-    label: 'Abaixo do Mínimo', 
-    sublabel: 'Crítico',
-    color: '#EF4444',
-    glowColor: 'rgba(239, 68, 68, 0.4)',
-    trackColor: 'rgba(239, 68, 68, 0.15)'
+    label: 'Fase Inicial', 
+    sublabel: 'Abyss',
+    color: '#FFD700', 
+    glowColor: 'rgba(255, 215, 0, 0.3)',
+    trackColor: 'rgba(255, 215, 0, 0.05)'
   },
   { 
     key: 'orange', 
     min: 60, 
     max: 70, 
-    label: 'Mínimo', 
-    sublabel: 'Atenção',
-    color: '#F97316',
-    glowColor: 'rgba(249, 115, 22, 0.4)',
-    trackColor: 'rgba(249, 115, 22, 0.15)'
+    label: 'Engajamento', 
+    sublabel: 'Ascensão',
+    color: '#FFD700',
+    glowColor: 'rgba(255, 215, 0, 0.5)',
+    trackColor: 'rgba(255, 215, 0, 0.1)'
   },
   { 
     key: 'yellow', 
     min: 71, 
     max: 129, 
-    label: 'Regular', 
-    sublabel: 'Em crescimento',
-    color: '#EAB308',
-    glowColor: 'rgba(234, 179, 8, 0.4)',
-    trackColor: 'rgba(234, 179, 8, 0.15)'
+    label: 'Tração Elevada', 
+    sublabel: 'Ouro',
+    color: '#FFD700',
+    glowColor: 'rgba(255, 215, 0, 0.7)',
+    trackColor: 'rgba(255, 215, 0, 0.15)'
   },
   { 
     key: 'green', 
     min: 130, 
     max: 230, 
-    label: 'Ideal', 
-    sublabel: 'Meta atingida',
-    color: '#22C55E',
-    glowColor: 'rgba(34, 197, 94, 0.4)',
-    trackColor: 'rgba(34, 197, 94, 0.15)'
+    label: 'Meta Máxima', 
+    sublabel: 'Domínio',
+    color: '#FFD700',
+    glowColor: 'rgba(255, 215, 0, 1)',
+    trackColor: 'rgba(255, 215, 0, 0.2)'
   },
 ];
 
 export const MAX_VALUE = 230;
 
 export function getZone(count: number): Zone {
-  const zone = ZONES.find(z => count >= z.min && count <= z.max);
-  if (count > MAX_VALUE) return ZONES[ZONES.length - 1];
-  return zone || ZONES[0];
+  if (count >= 130) return ZONES[3];
+  if (count >= 71) return ZONES[2];
+  if (count >= 60) return ZONES[1];
+  return ZONES[0];
 }
 
 export interface Insight {
@@ -73,42 +74,32 @@ export function getInsight(count: number): Insight {
   
   if (zone.key === 'red') {
     return {
-      headline: 'Ação imediata necessária',
-      message: count === 0 
-        ? "Nenhuma inscrição registrada ainda. Inicie a divulgação agora."
-        : `Faltam ${60 - count} inscrições para o mínimo viável. Intensifique a divulgação.`,
-      action: "Urgente: ampliar alcance da comunicação"
+      headline: 'A Profundidade do Filtro',
+      message: `O dashboard iniciou o rastreamento. Atualmente com ${count} logins validados.`,
+      action: "Fomentar o acesso à plataforma"
     };
   }
   
   if (zone.key === 'orange') {
     return {
-      headline: 'No limiar mínimo',
-      message: `Você está na zona mínima. ${130 - count} inscrições para a zona ideal.`,
-      action: "Manter cadência de comunicação diária"
+      headline: 'Ponto de Inflexão',
+      message: `O engajamento está subindo. ${230 - count} para a meta final.`,
+      action: "Acelerar conversão de convidados"
     };
   }
   
   if (zone.key === 'yellow') {
     return {
-      headline: 'Crescimento constante',
-      message: `Bom ritmo! Faltam ${130 - count} inscrições para a zona ideal.`,
-      action: `${130 - count} para o ideal — acelere a divulgação`
-    };
-  }
-  
-  if (count < 230) {
-    return {
-      headline: 'Meta atingida!',
-      message: `Com ${count} inscritos, o evento está garantido.`,
-      action: "Manter engajamento da audiência"
+      headline: 'A Era do Ouro',
+      message: `Momentum de crescimento forte. Alcançamos tração premium.`,
+      action: "Manter a exclusividade da jornada"
     };
   }
   
   return {
-    headline: 'Meta atingida!',
-    message: "Capacidade máxima atingida. Considere lista de espera.",
-    action: "Considerar lista de espera"
+    headline: 'Domínio Estratégico',
+    message: "Meta alcançada. O sistema está em sua capacidade máxima de operação.",
+    action: "Preparar logística de reserva"
   };
 }
 
@@ -119,25 +110,17 @@ export interface ProgressInfo {
 }
 
 export function getProgressToNext(count: number): ProgressInfo {
-  const currentZone = getZone(count);
-  const currentIndex = ZONES.findIndex(z => z.key === currentZone.key);
-  
-  if (currentZone.key === 'green') {
-    return {
-      percent: Math.min(100, (count / MAX_VALUE) * 100),
-      remaining: 0,
-      nextZone: null
-    };
+  if (count >= MAX_VALUE) {
+    return { percent: 100, remaining: 0, nextZone: null };
   }
-  
-  const nextZone = ZONES[currentIndex + 1];
-  const range = nextZone.min - currentZone.min;
-  const progress = count - currentZone.min;
-  
+  const nextTarget = count < 60 ? 60 : (count < 130 ? 130 : 230);
+  const startCap = count < 60 ? 0 : (count < 130 ? 60 : 130);
+  const range = nextTarget - startCap;
+  const progress = count - startCap;
   return {
     percent: Math.min(100, (progress / range) * 100),
-    remaining: nextZone.min - count,
-    nextZone
+    remaining: nextTarget - count,
+    nextZone: ZONES.find(z => z.min === nextTarget) || null
   };
 }
 

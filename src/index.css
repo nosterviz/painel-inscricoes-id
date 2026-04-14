@@ -4,14 +4,26 @@
 
 @layer base {
   body {
-    @apply bg-[#050A0F] text-white antialiased;
+    @apply bg-[#050A0F] text-white antialiased font-body;
   }
+  
+  h1, h2, h3, h4 {
+    @apply font-heading uppercase;
+  }
+}
+
+.glass-panel {
+  @apply bg-[#061A1F]/30 backdrop-blur-xl border border-white/5;
+}
+
+.gold-text {
+  @apply text-[#FFD700];
 }
 
 .reveal {
   opacity: 0;
-  transform: translateY(24px);
-  animation: reveal-anim 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  transform: translateY(20px);
+  animation: reveal-anim 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 @keyframes reveal-anim {
@@ -21,10 +33,13 @@
   }
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .reveal {
-    opacity: 1;
-    transform: none;
-    animation: none;
-  }
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  @apply bg-[#050A0F];
+}
+::-webkit-scrollbar-thumb {
+  @apply bg-[#FFD700]/20 rounded-full hover:bg-[#FFD700]/40 transition-colors;
 }
