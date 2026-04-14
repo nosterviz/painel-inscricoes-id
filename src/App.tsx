@@ -47,7 +47,7 @@ function DashboardContent() {
             <div className="w-2.5 h-2.5 rounded-full animate-pulse" style={{ backgroundColor: zone.color, boxShadow: `0 0 12px ${zone.color}` }} />
             <div>
               <span className="font-mono text-[10px] tracking-[0.2em] text-[#FFD700] uppercase block leading-none mb-1">O GRANDE FILTRO</span>
-              <h1 className="text-sm font-bold uppercase tracking-tight">Painel de Inscrições</h1>
+              <h1 className="text-sm font-bold uppercase tracking-tight text-white">Painel de <span className="text-gold-gradient">Inscrições</span></h1>
             </div>
           </div>
           <div className="flex items-center gap-6">
@@ -55,9 +55,9 @@ function DashboardContent() {
               <Clock className="w-3 h-3" />
               Atualizado {timeAgo}
             </div>
-            <button onClick={() => refresh()} disabled={loading} className="flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/5 border border-white/5 hover:bg-white/10 transition-all disabled:opacity-50">
-              <RefreshCw className={`w-3.5 h-3.5 text-[#FFD700] ${loading ? 'animate-spin' : ''}`} />
-              <span className="font-mono text-[10px] uppercase tracking-wider font-bold">{loading ? 'Sincronizando...' : 'Atualizar'}</span>
+            <button onClick={() => refresh()} disabled={loading} className="flex items-center gap-2 px-6 py-2 rounded-full bg-gold-gradient hover:scale-105 transition-all disabled:opacity-50 text-black">
+              <RefreshCw className={`w-3.5 h-3.5 ${loading ? 'animate-spin' : ''}`} />
+              <span className="font-mono text-[10px] uppercase tracking-wider font-extrabold">{loading ? 'Sincronizando...' : 'Atualizar'}</span>
             </button>
           </div>
         </div>

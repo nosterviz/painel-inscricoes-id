@@ -62,9 +62,11 @@ export function GaugeChart({ value }: GaugeChartProps) {
       >
         <defs>
           <linearGradient id="goldGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop offset="0%" stopColor="#D4AF37" />
+            <stop offset="0%" stopColor="#8A6623" />
+            <stop offset="25%" stopColor="#D4AF37" />
             <stop offset="50%" stopColor="#F9E076" />
-            <stop offset="100%" stopColor="#D4AF37" />
+            <stop offset="75%" stopColor="#D4AF37" />
+            <stop offset="100%" stopColor="#8A6623" />
           </linearGradient>
         </defs>
 

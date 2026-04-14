@@ -50,8 +50,7 @@ export function KPICards({ count }: KPICardsProps) {
                 {card.label}
               </p>
               <h3 
-                className="font-heading text-3xl font-bold transition-transform duration-300 group-hover:scale-105 origin-left"
-                style={{ color: card.color }}
+                className="font-heading text-4xl font-black transition-transform duration-300 group-hover:scale-105 origin-left text-gold-gradient"
               >
                 {card.value}
               </h3>

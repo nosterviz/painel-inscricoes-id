@@ -8,9 +8,13 @@ export default {
     extend: {
       colors: {
         brand: {
-          primary: "#050A0F", // Abyss Teal (Background/Primary Theme)
-          accent: "#FFD700",  // Gold (Secondary/Accent)
-          muted: "#C9A055",   // Muted Gold
+          primary: "#050A0F", // Abyss Teal
+          accent: "#D4AF37",  // Gold Core
+          gold: {
+            light: "#F9E076",
+            core: "#D4AF37",
+            dark: "#8A6623",
+          },
           depth: "#061A1F",
         },
       },

@@ -6,18 +6,21 @@
   body {
     @apply bg-[#050A0F] text-white antialiased font-body;
   }
-  
-  h1, h2, h3, h4 {
-    @apply font-heading uppercase;
-  }
+}
+
+.text-gold-gradient {
+  background: linear-gradient(135deg, #D4AF37 0%, #F9E076 50%, #8A6623 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.bg-gold-gradient {
+  background: linear-gradient(135deg, #D4AF37 0%, #F9E076 50%, #8A6623 100%);
 }
 
 .glass-panel {
-  @apply bg-[#061A1F]/30 backdrop-blur-xl border border-white/5;
-}
-
-.gold-text {
-  @apply text-[#FFD700];
+  @apply bg-[#061A1F]/40 backdrop-blur-xl border border-white/5;
 }
 
 .reveal {
@@ -33,7 +36,6 @@
   }
 }
 
-/* Custom Scrollbar */
 ::-webkit-scrollbar {
   width: 6px;
 }
@@ -41,5 +43,5 @@
   @apply bg-[#050A0F];
 }
 ::-webkit-scrollbar-thumb {
-  @apply bg-[#FFD700]/20 rounded-full hover:bg-[#FFD700]/40 transition-colors;
+  @apply bg-[#D4AF37]/20 rounded-full hover:bg-[#D4AF37]/40;
 }

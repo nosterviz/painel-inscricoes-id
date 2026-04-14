@@ -71,8 +71,8 @@ export function PasswordGate({ children }: PasswordGateProps) {
             </div>
           </div>
           {error && <div className="flex items-center gap-2 text-[#EF4444] text-xs font-medium bg-[#EF4444]/10 p-3 rounded-lg border border-[#EF4444]/20"><ShieldCheck className="w-4 h-4" />{error}</div>}
-          <button type="submit" disabled={!password || isChecking} className="w-full bg-[#FFD700] hover:bg-[#34d2e4] disabled:bg-zinc-800 disabled:text-zinc-600 text-[#050A0F] font-bold py-3 rounded-lg transition-all active:scale-[0.98] flex items-center justify-center gap-2">
-            {isChecking ? <div className="w-5 h-5 border-2 border-[#050A0F]/20 border-t-[#050A0F] rounded-full animate-spin" /> : 'Entrar'}
+          <button type="submit" disabled={!password || isChecking} className="w-full bg-gold-gradient disabled:bg-zinc-800 disabled:text-zinc-600 text-black font-black py-4 rounded-xl transition-all active:scale-[0.98] flex items-center justify-center gap-2 uppercase tracking-widest shadow-[0_10px_30px_rgba(212,175,55,0.2)]">
+            {isChecking ? <div className="w-5 h-5 border-2 border-black/20 border-t-black rounded-full animate-spin" /> : 'Acessar Dashboard'}
           </button>
         </form>
       </div>
