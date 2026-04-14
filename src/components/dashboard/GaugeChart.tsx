@@ -55,7 +55,7 @@ export function GaugeChart({ value }: GaugeChartProps) {
   const dashOffset = circumference * (1 - Math.min(value, MAX_VALUE) / MAX_VALUE);
 
   return (
-    <div className="relative w-full max-w-[420px] mx-auto flex flex-col items-center">
+    <div className="relative w-full max-w-[600px] mx-auto flex flex-col items-center">
       <svg 
         viewBox="0 0 300 240" 
         className="w-full h-auto"

@@ -74,13 +74,12 @@ function DashboardContent() {
           </div>
         )}
 
-        <div className="grid grid-cols-1 xl:grid-cols-12 gap-12 items-start">
-          <div className="xl:col-span-5 space-y-12 flex flex-col items-center">
-            <section className="w-full reveal">
-              <GaugeChart value={data?.inscritos || 0} />
-            </section>
-          </div>
-          <div className="xl:col-span-7 space-y-12">
+        <div className="flex flex-col items-center space-y-16">
+          <section className="w-full max-w-4xl reveal flex flex-col items-center">
+            <GaugeChart value={data?.inscritos || 0} />
+          </section>
+
+          <div className="w-full grid grid-cols-1 xl:grid-cols-2 gap-12">
             <section className="reveal" style={{ transitionDelay: '0.1s' }}>
               <KPICards count={data?.inscritos || 0} />
             </section>
@@ -89,19 +88,6 @@ function DashboardContent() {
             </section>
           </div>
         </div>
-
-        {data?.nomes && data.nomes.length > 0 && (
-          <section className="reveal pt-8" style={{ transitionDelay: '0.3s' }}>
-            <div className="flex items-center gap-3 mb-8">
-              <div className="w-10 h-10 rounded-xl bg-[#FFD700]/10 flex items-center justify-center border border-[#FFD700]/20"><ShieldCheck className="w-5 h-5 text-[#FFD700]" /></div>
-              <div>
-                <h2 className="text-2xl font-bold font-heading">Listagem de Registros</h2>
-                <p className="text-zinc-500 text-xs font-mono uppercase tracking-widest">Acesso interno confidencial</p>
-              </div>
-            </div>
-            <NamesGrid names={data.nomes} />
-          </section>
-        )}
       </main>
     </div>
   );
