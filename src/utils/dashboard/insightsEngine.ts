@@ -12,49 +12,19 @@ export interface Zone {
 }
 
 export const ZONES: Zone[] = [
-  { 
-    key: 'red', 
-    min: 0, 
-    max: 59, 
-    label: 'Fase Inicial', 
-    sublabel: 'Abyss',
-    color: '#FFD700', 
-    glowColor: 'rgba(255, 215, 0, 0.3)',
-    trackColor: 'rgba(255, 215, 0, 0.05)'
-  },
-  { 
-    key: 'orange', 
-    min: 60, 
-    max: 70, 
-    label: 'Engajamento', 
-    sublabel: 'Ascensão',
-    color: '#FFD700',
-    glowColor: 'rgba(255, 215, 0, 0.5)',
-    trackColor: 'rgba(255, 215, 0, 0.1)'
-  },
-  { 
-    key: 'yellow', 
-    min: 71, 
-    max: 129, 
-    label: 'Tração Elevada', 
-    sublabel: 'Ouro',
-    color: '#FFD700',
-    glowColor: 'rgba(255, 215, 0, 0.7)',
-    trackColor: 'rgba(255, 215, 0, 0.15)'
-  },
-  { 
-    key: 'green', 
-    min: 130, 
-    max: 230, 
-    label: 'Meta Máxima', 
-    sublabel: 'Domínio',
-    color: '#FFD700',
-    glowColor: 'rgba(255, 215, 0, 1)',
-    trackColor: 'rgba(255, 215, 0, 0.2)'
-  },
+  { key: 'red', min: 0, max: 59, label: 'Fase Inicial', sublabel: 'Abyss', color: '#FFD700', glowColor: 'rgba(255, 215, 0, 0.3)', trackColor: 'rgba(255, 215, 0, 0.05)' },
+  { key: 'orange', min: 60, max: 70, label: 'Engajamento', sublabel: 'Ascensão', color: '#FFD700', glowColor: 'rgba(255, 215, 0, 0.5)', trackColor: 'rgba(255, 215, 0, 0.1)' },
+  { key: 'yellow', min: 71, max: 129, label: 'Tração Elevada', sublabel: 'Ouro', color: '#FFD700', glowColor: 'rgba(255, 215, 0, 0.7)', trackColor: 'rgba(255, 215, 0, 0.15)' },
+  { key: 'green', min: 130, max: 230, label: 'Meta Máxima', sublabel: 'Domínio', color: '#FFD700', glowColor: 'rgba(255, 215, 0, 1)', trackColor: 'rgba(255, 215, 0, 0.2)' },
 ];
 
 export const MAX_VALUE = 230;
+export const EVENT_DATE = new Date('2026-05-25T09:00:00');
+
+export function getDaysRemaining(): number {
+  const diff = EVENT_DATE.getTime() - new Date().getTime();
+  return Math.max(0, Math.floor(diff / (1000 * 60 * 60 * 24)));
+}
 
 export function getZone(count: number): Zone {
   if (count >= 130) return ZONES[3];
@@ -67,39 +37,37 @@ export interface Insight {
   headline: string;
   message: string;
   action: string;
+  priority: 'low' | 'medium' | 'high';
 }
 
 export function getInsight(count: number): Insight {
-  const zone = getZone(count);
+  const days = getDaysRemaining();
+  const remainingInscriptions = MAX_VALUE - count;
+  const velocityNeeded = days > 0 ? (remainingInscriptions / days).toFixed(1) : 'N/A';
   
-  if (zone.key === 'red') {
+  if (days <= 7 && count < 130) {
     return {
-      headline: 'A Profundidade do Filtro',
-      message: `O dashboard iniciou o rastreamento. Atualmente com ${count} logins validados.`,
-      action: "Fomentar o acesso à plataforma"
+      headline: 'Reta Final: Pressão Crítica',
+      message: `Faltam apenas ${days} dias para o evento. Para atingir a meta, precisamos de ${velocityNeeded} inscrições/dia.`,
+      action: "Executar plano de contingência e remarketing agressivo",
+      priority: 'high'
     };
   }
-  
-  if (zone.key === 'orange') {
+
+  if (count < 60) {
     return {
-      headline: 'Ponto de Inflexão',
-      message: `O engajamento está subindo. ${230 - count} para a meta final.`,
-      action: "Acelerar conversão de convidados"
-    };
-  }
-  
-  if (zone.key === 'yellow') {
-    return {
-      headline: 'A Era do Ouro',
-      message: `Momentum de crescimento forte. Alcançamos tração premium.`,
-      action: "Manter a exclusividade da jornada"
+      headline: 'Horizonte de Inscrições',
+      message: `Temos ${days} dias de janela. O ritmo ideal agora é de ${velocityNeeded} conversões diárias para o sucesso pleno.`,
+      action: "Sólida base estratégica necessária",
+      priority: 'medium'
     };
   }
   
   return {
-    headline: 'Domínio Estratégico',
-    message: "Meta alcançada. O sistema está em sua capacidade máxima de operação.",
-    action: "Preparar logística de reserva"
+    headline: 'Trajetória de Sucesso',
+    message: `Faltam ${days} dias. Com ${count} inscritos, a velocidade necessária baixou para ${velocityNeeded} inscrições por dia.`,
+    action: "Manter exclusividade e valor premium",
+    priority: 'low'
   };
 }
 
@@ -107,11 +75,13 @@ export interface ProgressInfo {
   percent: number;
   remaining: number;
   nextZone: Zone | null;
+  daysRemaining: number;
 }
 
 export function getProgressToNext(count: number): ProgressInfo {
+  const days = getDaysRemaining();
   if (count >= MAX_VALUE) {
-    return { percent: 100, remaining: 0, nextZone: null };
+    return { percent: 100, remaining: 0, nextZone: null, daysRemaining: days };
   }
   const nextTarget = count < 60 ? 60 : (count < 130 ? 130 : 230);
   const startCap = count < 60 ? 0 : (count < 130 ? 60 : 130);
@@ -120,10 +90,7 @@ export function getProgressToNext(count: number): ProgressInfo {
   return {
     percent: Math.min(100, (progress / range) * 100),
     remaining: nextTarget - count,
-    nextZone: ZONES.find(z => z.min === nextTarget) || null
+    nextZone: ZONES.find(z => z.min === nextTarget) || null,
+    daysRemaining: days
   };
-}
-
-export function getGaugePercent(count: number): number {
-  return Math.min(1, Math.max(0, count / MAX_VALUE));
 }

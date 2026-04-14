@@ -42,23 +42,31 @@ export function InsightsPanel({ count }: InsightsPanelProps) {
       </div>
 
       <div className="lg:col-span-4 flex flex-col gap-6">
+        <div className="bg-[#061A1F] p-6 rounded-2xl border border-white/5 flex flex-col justify-center items-center text-center">
+          <span className="font-mono text-[10px] text-[#FFD700] uppercase tracking-[0.2em] mb-2">Janela de Oportunidade</span>
+          <div className="text-4xl font-heading font-black text-white leading-none mb-1">
+            {progress.daysRemaining}
+          </div>
+          <span className="text-[10px] text-zinc-500 uppercase font-bold tracking-widest">Dias para o evento</span>
+        </div>
+
         {progress.nextZone && (
           <div className="bg-[#061A1F] p-6 rounded-2xl border border-white/5">
             <div className="flex justify-between items-end mb-4">
               <span className="font-mono text-[10px] text-zinc-500 uppercase">
-                Próximo Nível: {progress.nextZone.label}
+                Próximo Alvo: {progress.nextZone.label}
               </span>
               <span className="font-mono text-xs text-white">
-                Faltam {progress.remaining}
+                -{progress.remaining}
               </span>
             </div>
-            <div className="h-2 w-full bg-white/5 rounded-full overflow-hidden">
+            <div className="h-1.5 w-full bg-white/5 rounded-full overflow-hidden">
               <div 
                 className="h-full transition-all duration-1000 ease-out"
                 style={{ 
                   width: `${progress.percent}%`,
-                  backgroundColor: progress.nextZone.color,
-                  boxShadow: `0 0 10px ${progress.nextZone.color}66`
+                  backgroundColor: '#FFD700',
+                  boxShadow: `0 0 10px rgba(255, 215, 0, 0.4)`
                 }}
               />
             </div>
