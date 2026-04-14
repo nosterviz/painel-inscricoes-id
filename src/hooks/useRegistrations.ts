@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
 
-const ENDPOINT = 'https://script.google.com/macros/s/AKfycbyHxHZLcBgLaEkxFCCkSEbW94Y6wiguOBb-zYLkqFUd22kBSJbzdjDKEkglGPor_FhJSg/exec';
+const ENDPOINT = 'https://script.google.com/macros/s/AKfycbweSejINZzMTluC2ooJJXPI6BttPnTG4ssiqVMo8i31zN0kvA80tzoe95odZqM-Qx9uUg/exec';
 const REFRESH_INTERVAL = 30000;
 const TIMEOUT_DURATION = 10000;
 
