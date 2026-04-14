@@ -22,7 +22,7 @@ export function KPICards({ count }: KPICardsProps) {
       label: 'Meta do Evento',
       value: MAX_VALUE,
       icon: Target,
-      color: '#2BBDCE',
+      color: '#FFD700',
       bg: 'rgba(43, 189, 206, 0.1)',
     },
     {
@@ -39,10 +39,10 @@ export function KPICards({ count }: KPICardsProps) {
       {cards.map((card, idx) => (
         <div 
           key={idx}
-          className="group relative bg-[#111827] border border-white/5 p-6 rounded-2xl transition-all duration-300 hover:scale-[1.02] hover:border-[#2BBDCE]/40 overflow-hidden"
+          className="group relative bg-[#061A1F] border border-white/5 p-6 rounded-2xl transition-all duration-300 hover:scale-[1.02] hover:border-[#FFD700]/40 overflow-hidden"
           style={{ boxShadow: '0 4px 20px rgba(0,0,0,0.2)' }}
         >
-          <div className="absolute bottom-0 left-0 h-[2px] w-0 bg-[#2BBDCE] transition-all duration-500 group-hover:w-full" />
+          <div className="absolute bottom-0 left-0 h-[2px] w-0 bg-[#FFD700] transition-all duration-500 group-hover:w-full" />
           
           <div className="flex items-start justify-between">
             <div>

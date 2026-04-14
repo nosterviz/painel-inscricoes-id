@@ -22,7 +22,7 @@ export function NamesGrid({ names }: NamesGridProps) {
             placeholder="Buscar por nome..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full bg-[#111827] border border-white/5 rounded-full pl-12 pr-10 py-3 text-sm text-white focus:outline-none focus:border-[#2BBDCE]/40 transition-all shadow-lg"
+            className="w-full bg-[#061A1F] border border-white/5 rounded-full pl-12 pr-10 py-3 text-sm text-white focus:outline-none focus:border-[#FFD700]/40 transition-all shadow-lg"
           />
           {searchTerm && (
             <button 
@@ -36,7 +36,7 @@ export function NamesGrid({ names }: NamesGridProps) {
         
         <div className="font-mono text-[10px] uppercase tracking-widest text-zinc-500">
           {searchTerm ? (
-            <span className="text-[#2BBDCE] font-bold">
+            <span className="text-[#FFD700] font-bold">
               {filteredNames.length} resultados
             </span>
           ) : (
@@ -51,17 +51,17 @@ export function NamesGrid({ names }: NamesGridProps) {
             <div 
               key={`${name}-${idx}`}
               title={name}
-              className="group relative bg-[#111827] p-4 flex items-center gap-3 transition-all duration-300 hover:translate-y-[-2px]"
+              className="group relative bg-[#061A1F] p-4 flex items-center gap-3 transition-all duration-300 hover:translate-y-[-2px]"
             >
-              <UserCheck className="w-3.5 h-3.5 text-[#2BBDCE]/40 group-hover:text-[#2BBDCE]" />
+              <UserCheck className="w-3.5 h-3.5 text-[#FFD700]/40 group-hover:text-[#FFD700]" />
               <span className="text-[13px] text-zinc-400 font-medium truncate group-hover:text-white">
                 {name}
               </span>
-              <div className="absolute bottom-0 left-0 w-0 h-[1px] bg-[#2BBDCE]/30 transition-all duration-300 group-hover:w-full" />
+              <div className="absolute bottom-0 left-0 w-0 h-[1px] bg-[#FFD700]/30 transition-all duration-300 group-hover:w-full" />
             </div>
           ))
         ) : (
-          <div className="col-span-full py-20 bg-[#111827] flex flex-col items-center justify-center text-zinc-600">
+          <div className="col-span-full py-20 bg-[#061A1F] flex flex-col items-center justify-center text-zinc-600">
             <Search size={40} className="mb-4 opacity-10" />
             <p className="font-mono text-xs uppercase tracking-widest">
               Nenhum resultado

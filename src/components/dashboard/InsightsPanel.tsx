@@ -13,12 +13,12 @@ export function InsightsPanel({ count }: InsightsPanelProps) {
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
-      <div className="lg:col-span-8 bg-[#111827] rounded-2xl overflow-hidden border border-white/5 flex flex-col md:flex-row relative">
+      <div className="lg:col-span-8 bg-[#061A1F] rounded-2xl overflow-hidden border border-white/5 flex flex-col md:flex-row relative">
         <div className="w-1.5 shrink-0" style={{ backgroundColor: zone.color }} />
         <div className="p-8 flex-1">
           <div className="flex items-center gap-3 mb-4">
             <div className="p-2 rounded-lg bg-white/5">
-              <Lightbulb className="w-5 h-5 text-[#2BBDCE]" />
+              <Lightbulb className="w-5 h-5 text-[#FFD700]" />
             </div>
             <h4 className="font-heading text-xl font-bold text-white">
               {insight.headline}
@@ -43,7 +43,7 @@ export function InsightsPanel({ count }: InsightsPanelProps) {
 
       <div className="lg:col-span-4 flex flex-col gap-6">
         {progress.nextZone && (
-          <div className="bg-[#111827] p-6 rounded-2xl border border-white/5">
+          <div className="bg-[#061A1F] p-6 rounded-2xl border border-white/5">
             <div className="flex justify-between items-end mb-4">
               <span className="font-mono text-[10px] text-zinc-500 uppercase">
                 Próximo Nível: {progress.nextZone.label}
@@ -65,7 +65,7 @@ export function InsightsPanel({ count }: InsightsPanelProps) {
           </div>
         )}
 
-        <div className="bg-[#111827] p-6 rounded-2xl border border-white/5 flex-1">
+        <div className="bg-[#061A1F] p-6 rounded-2xl border border-white/5 flex-1">
           <p className="font-mono text-[10px] text-zinc-500 uppercase mb-4 tracking-widest">
             Zonas de Desempenho
           </p>
