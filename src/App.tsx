@@ -90,16 +90,18 @@ function DashboardContent() {
           </div>
         </div>
 
-        <section className="reveal pt-8" style={{ transitionDelay: '0.3s' }}>
-          <div className="flex items-center gap-3 mb-8">
-            <div className="w-10 h-10 rounded-xl bg-[#2BBDCE]/10 flex items-center justify-center border border-[#2BBDCE]/20"><ShieldCheck className="w-5 h-5 text-[#2BBDCE]" /></div>
-            <div>
-              <h2 className="text-2xl font-bold font-heading">Listagem de Registros</h2>
-              <p className="text-zinc-500 text-xs font-mono uppercase tracking-widest">Acesso interno confidencial</p>
+        {data?.nomes && data.nomes.length > 0 && (
+          <section className="reveal pt-8" style={{ transitionDelay: '0.3s' }}>
+            <div className="flex items-center gap-3 mb-8">
+              <div className="w-10 h-10 rounded-xl bg-[#2BBDCE]/10 flex items-center justify-center border border-[#2BBDCE]/20"><ShieldCheck className="w-5 h-5 text-[#2BBDCE]" /></div>
+              <div>
+                <h2 className="text-2xl font-bold font-heading">Listagem de Registros</h2>
+                <p className="text-zinc-500 text-xs font-mono uppercase tracking-widest">Acesso interno confidencial</p>
+              </div>
             </div>
-          </div>
-          <NamesGrid names={data?.nomes || []} />
-        </section>
+            <NamesGrid names={data.nomes} />
+          </section>
+        )}
       </main>
     </div>
   );

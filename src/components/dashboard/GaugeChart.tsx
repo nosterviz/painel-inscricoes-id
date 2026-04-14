@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { MAX_VALUE, getZone } from '../../utils/dashboard/insightsEngine';
 
 interface GaugeChartProps {
@@ -15,13 +15,13 @@ export function GaugeChart({ value }: GaugeChartProps) {
   const cx = 150;
   const cy = 160;
   const r = 110;
-  const startAngle = 210;
-  const totalSweep = 240;
+  const startAngle = 150; // Start at 7 o'clock
+  const totalSweep = 240; // Sweep to 5 o'clock
   const circumference = 2 * Math.PI * r * (totalSweep / 360);
 
-  // Polar to Cartesian conversion
+  // Polar to Cartesian conversion (0 is right, 90 is bottom)
   const polarToCartesian = (centerX: number, centerY: number, radius: number, angleInDegrees: number) => {
-    const angleInRadians = ((angleInDegrees - 90) * Math.PI) / 180.0;
+    const angleInRadians = (angleInDegrees * Math.PI) / 180.0;
     return {
       x: centerX + radius * Math.cos(angleInRadians),
       y: centerY + radius * Math.sin(angleInRadians),
@@ -64,36 +64,41 @@ export function GaugeChart({ value }: GaugeChartProps) {
   return (
     <div className="relative w-full max-w-[400px] mx-auto flex flex-col items-center">
       <svg 
-        viewBox="0 0 300 220" 
+        viewBox="0 0 300 240" 
         className="w-full h-auto drop-shadow-[0_0_20px_rgba(0,0,0,0.5)]"
       >
         <path
-          d={`M ${polarToCartesian(cx, cy, r, 210).x} ${polarToCartesian(cx, cy, r, 210).y} 
-             A ${r} ${r} 0 1 1 ${polarToCartesian(cx, cy, r, 90).x} ${polarToCartesian(cx, cy, r, 90).y}`}
+          d={`M ${polarToCartesian(cx, cy, r, startAngle).x} ${polarToCartesian(cx, cy, r, startAngle).y} 
+             A ${r} ${r} 0 1 1 ${polarToCartesian(cx, cy, r, startAngle + totalSweep).x} ${polarToCartesian(cx, cy, r, startAngle + totalSweep).y}`}
           fill="none"
           stroke="rgba(255,255,255,0.06)"
           strokeWidth="18"
           strokeLinecap="round"
         />
 
-        {[59, 70, 129, 230].map((threshold) => {
+        {[0, 60, 129, 230].map((threshold) => {
           const angle = startAngle + (threshold / MAX_VALUE) * totalSweep;
-          const p1 = polarToCartesian(cx, cy, r - 14, angle);
-          const p2 = polarToCartesian(cx, cy, r + 14, angle);
+          const p1 = polarToCartesian(cx, cy, r - 12, angle);
+          const p2 = polarToCartesian(cx, cy, r + 12, angle);
+          const labelPos = polarToCartesian(cx, cy, r + 32, angle);
+          
           return (
             <g key={threshold}>
               <line
                 x1={p1.x} y1={p1.y}
                 x2={p2.x} y2={p2.y}
-                stroke="rgba(255,255,255,0.1)"
-                strokeWidth="1"
+                stroke="rgba(255,255,255,0.15)"
+                strokeWidth="2"
+                strokeLinecap="round"
               />
               <text
-                x={polarToCartesian(cx, cy, r + 24, angle).x}
-                y={polarToCartesian(cx, cy, r + 24, angle).y}
-                fill="rgba(255,255,255,0.35)"
-                fontSize="8"
+                x={labelPos.x}
+                y={labelPos.y}
+                fill="rgba(255,255,255,0.4)"
+                fontSize="11"
+                fontWeight="600"
                 textAnchor="middle"
+                dominantBaseline="middle"
                 className="font-mono"
               >
                 {threshold}
@@ -103,8 +108,8 @@ export function GaugeChart({ value }: GaugeChartProps) {
         })}
 
         <path
-          d={`M ${polarToCartesian(cx, cy, r, 210).x} ${polarToCartesian(cx, cy, r, 210).y} 
-             A ${r} ${r} 0 1 1 ${polarToCartesian(cx, cy, r, 90).x} ${polarToCartesian(cx, cy, r, 90).y}`}
+          d={`M ${polarToCartesian(cx, cy, r, startAngle).x} ${polarToCartesian(cx, cy, r, startAngle).y} 
+             A ${r} ${r} 0 1 1 ${polarToCartesian(cx, cy, r, startAngle + totalSweep).x} ${polarToCartesian(cx, cy, r, startAngle + totalSweep).y}`}
           fill="none"
           stroke={currentZone.color}
           strokeWidth="18"
@@ -113,7 +118,7 @@ export function GaugeChart({ value }: GaugeChartProps) {
           style={{ 
             strokeDashoffset: dashOffset,
             transition: 'stroke-dashoffset 1.2s cubic-bezier(0.16, 1, 0.3, 1), stroke 0.6s ease',
-            filter: `drop-shadow(0 0 6px ${currentZone.color})`
+            filter: `drop-shadow(0 0 8px ${currentZone.color})`
           }}
         />
 
@@ -122,7 +127,7 @@ export function GaugeChart({ value }: GaugeChartProps) {
           y={cy - 10}
           textAnchor="middle"
           className="font-heading font-bold transition-all duration-700"
-          style={{ fill: currentZone.color, fontSize: '52px' }}
+          style={{ fill: currentZone.color, fontSize: '56px' }}
         >
           {displayValue}
         </text>
@@ -140,17 +145,17 @@ export function GaugeChart({ value }: GaugeChartProps) {
         <g transform={`translate(${cx - 35}, ${cy + 35})`}>
           <rect
             width="70"
-            height="16"
-            rx="8"
+            height="18"
+            rx="9"
             fill={currentZone.trackColor}
             className="transition-colors duration-600"
           />
           <text
             x="35"
-            y="11"
+            y="12"
             textAnchor="middle"
             fill={currentZone.color}
-            fontSize="8"
+            fontSize="9"
             className="font-mono font-bold uppercase tracking-wider transition-colors duration-600"
           >
             {currentZone.label}
