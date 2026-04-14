@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
 
-const ENDPOINT = 'https://script.google.com/macros/s/AKfycbw770_Yt-XvEItxqclQu5eeQ6xspjceNnEf7uH-nDN3i0B8_XoKVOSu7F3mqxS9vt3O/exec';
+const ENDPOINT = 'https://script.google.com/macros/s/AKfycbyHxHZLcBgLaEkxFCCkSEbW94Y6wiguOBb-zYLkqFUd22kBSJbzdjDKEkglGPor_FhJSg/exec';
 const REFRESH_INTERVAL = 30000;
 const TIMEOUT_DURATION = 10000;
 
@@ -23,7 +23,7 @@ export function useRegistrations(): UseRegistrationsReturn {
   const [error, setError] = useState<string | null>(null);
   const [lastUpdated, setLastUpdated] = useState<Date | null>(null);
   
-  const timerRef = useRef<NodeJS.Timeout | null>(null);
+  const timerRef = useRef<any>(null);
 
   const fetchData = useCallback(async () => {
     setLoading(true);
