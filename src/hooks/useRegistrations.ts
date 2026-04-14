@@ -40,11 +40,14 @@ export function useRegistrations(): UseRegistrationsReturn {
 
       const json = await response.json();
       
-      if (typeof json.inscritos !== 'number' || !Array.isArray(json.nomes)) {
-        throw new Error("Formato de resposta inesperado do servidor");
+      if (typeof json.inscritos !== 'number') {
+        throw new Error("Formato de resposta inesperado do servidor (campo 'inscritos' não encontrado)");
       }
 
-      setData(json);
+      setData({
+        inscritos: json.inscritos,
+        nomes: Array.isArray(json.nomes) ? json.nomes : []
+      });
       setLastUpdated(new Date());
       setError(null);
     } catch (err: any) {
